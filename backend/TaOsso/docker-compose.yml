@@ -1,0 +1,6 @@
+﻿services:
+  taosso.api:
+    image: taosso.api
+    build:
+      context: .
+      dockerfile: TaOsso.Api/Dockerfile

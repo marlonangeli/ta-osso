@@ -1,0 +1,7 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "./TaOsso.Api/Dockerfile"
+
+[deploy]
+startCommand = "dotnet TaOsso.Api.dll"
+restartPolicyType = "never"

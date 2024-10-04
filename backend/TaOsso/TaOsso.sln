@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaOsso.Api", "TaOsso.Api\TaOsso.Api.csproj", "{B9960DD7-CA5F-4B9B-A7EE-537B4FBF719D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{296EF963-19A4-4DE2-9B60-57296BC9A1EB}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		railway.toml = railway.toml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9960DD7-CA5F-4B9B-A7EE-537B4FBF719D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9960DD7-CA5F-4B9B-A7EE-537B4FBF719D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9960DD7-CA5F-4B9B-A7EE-537B4FBF719D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9960DD7-CA5F-4B9B-A7EE-537B4FBF719D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
