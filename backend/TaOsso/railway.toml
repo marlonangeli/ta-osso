@@ -1,6 +1,6 @@
 [build]
 builder = "dockerfile"
-dockerfilePath = "backend/TaOsso/TaOsso.Api/Dockerfile"
+dockerfilePath = "./TaOsso.Api/Dockerfile"
 
 [deploy]
 startCommand = "dotnet TaOsso.Api.dll"
