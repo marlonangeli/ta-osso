@@ -38,7 +38,7 @@ app.MapGet("/weatherforecast", () =>
 app.MapGet("/database", async (IConfiguration config) =>
 {
     // Get the connection string from the DATABASE_URL environment variable
-    var databaseUrl = config.GetConnectionString("PostgreSQL") ?? config["DATABASE_URL"];
+    var databaseUrl = config["DATABASE_URL"] ?? config["DATABASE_PUBLIC_URL"];
     var connectionString = ConvertDatabaseUrlToConnectionString(databaseUrl!);
 
     Console.WriteLine($"Connecting string: {connectionString}");
