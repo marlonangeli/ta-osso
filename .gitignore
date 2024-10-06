@@ -997,3 +997,6 @@ hs_err_pid*
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,dart,aspnetcore,csharp,rider,visualstudio,androidstudio
+
+# Railway
+**.secret
