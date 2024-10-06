@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'backend/TaOsso/**'
+      - 'backend/**'
 
 jobs:
   deploy:
@@ -23,7 +23,7 @@ jobs:
         run: npm i -g @railway/cli
 
       - name: Deploy
-        working-directory: backend/TaOsso
+        working-directory: backend
         run: railway up -s ta-osso-api
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
