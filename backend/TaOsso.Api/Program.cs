@@ -36,10 +36,8 @@ app.MapGet("/weatherforecast", () =>
 app.MapGet("/database", async (IConfiguration config) =>
 {
     // Get the connection string from the DATABASE_URL environment variable
-    var databaseUrl = config["DATABASE_URL"] ?? config["DATABASE_PUBLIC_URL"];
+    var databaseUrl = config["DATABASE_PUBLIC_URL"];
     var connectionString = ConvertDatabaseUrlToConnectionString(databaseUrl!);
-
-    Console.WriteLine($"Connecting string: {connectionString}");
 
     try
     {
@@ -57,6 +55,29 @@ app.MapGet("/database", async (IConfiguration config) =>
         return "Error connecting to the database.";
     }
 }).WithName("TestDatabaseConnection").WithOpenApi();
+
+app.MapGet("/postgres-version", async (IConfiguration config) =>
+{
+    // Get the connection string from the DATABASE_URL environment variable
+    var databaseUrl = config["DATABASE_PUBLIC_URL"];
+    var connectionString = ConvertDatabaseUrlToConnectionString(databaseUrl!);
+
+    try
+    {
+        await using var connection = new NpgsqlConnection(connectionString);
+        await connection.OpenAsync();
+
+        await using var command = new NpgsqlCommand("SELECT version()", connection);
+        var result = await command.ExecuteScalarAsync();
+
+        return result;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error connecting to the database: {ex.Message}");
+        return "Error connecting to the database.";
+    }
+}).WithName("GetPostgresVersion").WithOpenApi();
 
 await app.RunAsync();
 
