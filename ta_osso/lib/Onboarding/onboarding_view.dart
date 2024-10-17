@@ -12,6 +12,8 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   final controller = OnboardingItems();
   final pageController = PageController();
+  int currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,52 +24,74 @@ class _OnboardingViewState extends State<OnboardingView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-                onPressed: () =>
-                    pageController.jumpToPage(controller.items.length - 1),
-                child: const Text('Pular')),
-
-            //Indicator
+              onPressed: () =>
+                  pageController.jumpToPage(controller.items.length - 1),
+              child: const Text('Pular'),
+            ),
             SmoothPageIndicator(
               controller: pageController,
               count: controller.items.length,
-              onDotClicked: (index) => pageController.animateToPage(index,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeIn),
+              onDotClicked: (index) => pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeIn,
+              ),
               effect: const WormEffect(
                 dotHeight: 12,
                 dotWidth: 12,
                 activeDotColor: Color.fromARGB(255, 230, 200, 33),
               ),
             ),
-
             TextButton(
-                onPressed: () => pageController.nextPage(
+              onPressed: () {
+                if (currentPage < controller.items.length - 1) {
+                  pageController.nextPage(
                     duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeIn),
-                child: const Text('Próximo')),
+                    curve: Curves.easeIn,
+                  );
+                }
+              },
+              child: const Text('Próximo'),
+            ),
           ],
         ),
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
         child: PageView.builder(
-            itemCount: controller.items.length,
-            itemBuilder: (context, index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(controller.items[index].image, height: 450),
-                  const SizedBox(height: 15),
-                  Text(controller.items[index].title,
-                      style: const TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 15),
-                  Text(controller.items[index].description,
-                      style: const TextStyle(color: Colors.grey, fontSize: 17),
-                      textAlign: TextAlign.center),
-                ],
-              );
-            }),
+          controller: pageController,
+          itemCount: controller.items.length,
+          onPageChanged: (index) {
+            setState(() {
+              currentPage = index;
+            });
+          },
+          itemBuilder: (context, index) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(controller.items[index].image, height: 450),
+                const SizedBox(height: 15),
+                Text(
+                  controller.items[index].title,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  controller.items[index].description,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 17,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
