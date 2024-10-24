@@ -41,7 +41,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     effect: const WormEffect(
                       dotHeight: 12,
                       dotWidth: 12,
-                      activeDotColor: Color(0xFFE6C821),
+                      activeDotColor: Colors.amberAccent,
                     ),
                   ),
                   TextButton(
@@ -67,7 +67,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               children: [
                 Image.asset(
                   controller.items[index].image,
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.4  ,
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 15),
@@ -102,14 +102,15 @@ class _OnboardingViewState extends State<OnboardingView> {
   Widget getStarted() {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: const Color(0xFFE6C821),
+        borderRadius: BorderRadius.circular(32),
+        color: Colors.amber,
       ),
       width: MediaQuery.of(context).size.width * 0.9,
       height: 55,
       child: TextButton(
         onPressed: () {
-          // Ação ao pressionar "Começar Agora"
+          // Salva em Shared Preferences que já fez o Onboarding
+
         },
         child: const Text(
           "Começar Agora",
