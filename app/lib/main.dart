@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ta_osso/Onboarding/onboarding_view.dart';
 import 'package:ta_osso/pages/home_view.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellowAccent),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const OnboardingView(),
     );
   }
 }
