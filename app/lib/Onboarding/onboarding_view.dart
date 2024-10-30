@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ta_osso/Onboarding/onboarding_items.dart';
+import 'package:ta_osso/pages/home_view.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -67,7 +68,7 @@ class _OnboardingViewState extends State<OnboardingView> {
               children: [
                 Image.asset(
                   controller.items[index].image,
-                  height: MediaQuery.of(context).size.height * 0.4  ,
+                  height: MediaQuery.of(context).size.height * 0.4,
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 15),
@@ -109,8 +110,9 @@ class _OnboardingViewState extends State<OnboardingView> {
       height: 55,
       child: TextButton(
         onPressed: () {
-          // Salva em Shared Preferences que já fez o Onboarding
-
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
+          );
         },
         child: const Text(
           "Começar Agora",

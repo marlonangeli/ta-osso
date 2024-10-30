@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "5576020367",
+    "project_id": "flutter-taosso",
+    "storage_bucket": "flutter-taosso.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5576020367:android:1fb1512b4274867ddd3bfa",
+        "android_client_info": {
+          "package_name": "com.example.ta_osso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2TmZr6qfsOaF7zHayvG7nj1elX0wyRU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
