@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ta_osso/pages/SingUp_view.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -109,6 +110,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   "Esqueceu sua senha?",
                   style: TextStyle(color: Colors.blue),
                 ),
+                TextButton(onPressed: () {
+                  Navigator.push(context,
+                   MaterialPageRoute(builder: (context) => SingUpView()),);
+                }, child: const Text(
+                  'Cadastrar Agora',
+                   style: TextStyle(color: Colors.blue),)
+                   ),
                 const SizedBox(
                   height: 88.0,
                 ),
