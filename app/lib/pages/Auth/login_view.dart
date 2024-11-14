@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:ta_osso/pages/Auth/signup_view.dart';
 import 'package:ta_osso/pages/home_view.dart';
+import 'package:ta_osso/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,54 +14,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _firebaseError = false;
-
-  Future<FirebaseApp> _initializeFirebase() async {
-    try {
-      FirebaseApp firebaseApp = await Firebase.initializeApp();
-      return firebaseApp;
-    } catch (e) {
-      setState(() {
-        _firebaseError = true;
-      });
-      return Future.error('Erro ao inicializar o Firebase');
-    }
-  }
-
-  static Future<User?> loginUsingEmailPassword({
-    required String email,
-    required String password,
-    required BuildContext context,
-  }) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-
-    try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      user = userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'user-not-found':
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Nenhum usuário encontrado com esse e-mail.')),
-          );
-          break;
-        case 'wrong-password':
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Senha incorreta.')),
-          );
-          break;
-        default:
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Erro ao fazer login.')),
-          );
-      }
-    }
-
-    return user;
-  }
 
   void _showPasswordResetDialog() {
     showDialog(
@@ -93,7 +45,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
               onPressed: () {
-                // Lógica para enviar o código de recuperação pode ser adicionada aqui
+                AuthService().sendPasswordResetEmail(_resetEmailController.text.trim());
+
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Código de recuperação enviado!')),
@@ -112,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: FutureBuilder(
-        future: _initializeFirebase(),
+        future: null,
+        // future: _initializeFirebase(),
         builder: (context, snapshot) {
           return SafeArea(
             child: Padding(
@@ -121,11 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (_firebaseError)
-                    const Text(
-                      'Erro ao conectar com o Firebase. Algumas funcionalidades podem estar limitadas.',
-                      style: TextStyle(color: Colors.red),
-                    ),
+                  // if (_firebaseError)
+                  //   const Text(
+                  //     'Erro ao conectar com o Firebase. Algumas funcionalidades podem estar limitadas.',
+                  //     style: TextStyle(color: Colors.red),
+                  //   ),
                   const Spacer(),
                   const Text(
                     "Bem-vindo ao Ta Osso 🦴",
@@ -193,11 +147,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       onPressed: () async {
-                        User? user = await loginUsingEmailPassword(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim(),
-                          context: context,
-                        );
+                        User? user;
+
+                        try {
+                          user = await AuthService()
+                              .signInWithEmailPassword(
+                            _emailController.text.trim(),
+                            _passwordController.text.trim(),
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString())),
+                          );
+                        }
 
                         if (user != null) {
                           Navigator.of(context).pushReplacement(
