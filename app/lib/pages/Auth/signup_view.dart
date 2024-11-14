@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ta_osso/pages/Auth/login_view.dart';
 import 'package:ta_osso/pages/home_view.dart';
+import 'package:ta_osso/services/auth_service.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -16,60 +17,11 @@ class _SignUpViewState extends State<SignUpView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  bool _firebaseError = false;
-
-  Future<FirebaseApp> _initializeFirebase() async {
-    try {
-      FirebaseApp firebaseApp = await Firebase.initializeApp();
-      return firebaseApp;
-    } catch (e) {
-      setState(() {
-        _firebaseError = true;
-      });
-      return Future.error('Erro ao inicializar o Firebase');
-    }
-  }
-
-  static Future<User?> signUpUser({
-    required String email,
-    required String password,
-    required String name,
-    required BuildContext context,
-  }) async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    User? user;
-
-    try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      user = userCredential.user;
-      await user?.updateDisplayName(name);
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'email-already-in-use':
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                content: Text('Já existe uma conta com esse email.')),
-          );
-          break;
-        case 'weak-password':
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Senha fraca.')),
-          );
-          break;
-        default:
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Erro ao criar conta.')),
-          );
-      }
-    }
-    return user;
-  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _initializeFirebase(),
+      future: null, // TODO: arrumar
       builder: (context, snapshot) {
         return Scaffold(
           body: SingleChildScrollView(
@@ -79,11 +31,12 @@ class _SignUpViewState extends State<SignUpView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (_firebaseError)
-                    const Text(
-                      'Erro ao conectar com o Firebase. Algumas funcionalidades podem estar limitadas.',
-                      style: TextStyle(color: Colors.red),
-                    ),
+                  // if (_firebaseError)
+                  //   const Text(
+                  //     'Erro ao conectar com o Firebase. Algumas funcionalidades podem estar limitadas.',
+                  //     style: TextStyle(color: Colors.red),
+                  //   ),
+                  // TODO: Arrumar tambem
                   const SizedBox(height: 40),
                   const Text(
                     "Bem-vindo ao Ta Osso 🦴",
@@ -169,12 +122,18 @@ class _SignUpViewState extends State<SignUpView> {
                           return;
                         }
 
-                        User? user = await signUpUser(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim(),
-                          name: _nameController.text.trim(),
-                          context: context,
-                        );
+                        User? user;
+
+                        try {
+                          user = await AuthService().createUserWithEmailPassword(
+                            _emailController.text.trim(),
+                            _passwordController.text.trim(),
+                            _nameController.text.trim());
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString())),
+                          );
+                        }
 
                         if (user != null) {
                           Navigator.of(context).pushReplacement(
