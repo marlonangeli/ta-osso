@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ta_osso/pages/Onboarding/onboarding_items.dart';
 import 'package:ta_osso/pages/Auth/login_view.dart';
-import 'package:ta_osso/pages/login_screen.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
