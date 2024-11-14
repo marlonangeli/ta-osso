@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ta_osso/Onboarding/onboarding_view.dart';
+import 'package:ta_osso/pages/Onboarding/onboarding_view.dart';
+import 'package:ta_osso/pages/Auth/login_view.dart';
 import 'package:ta_osso/pages/login_screen.dart';
 
 void main() {
