@@ -1,4 +1,4 @@
-import 'package:ta_osso/Onboarding/onboarding_info.dart';
+import 'package:ta_osso/pages/Onboarding/onboarding_info.dart';
 
 class OnboardingItems {
   List<OnboardingInfo> items = [
