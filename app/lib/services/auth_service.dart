@@ -1,9 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isInitialized = false;
+
+  Future<void> initializeFirebase() async {
+    if (!_isInitialized) {
+      await Firebase.initializeApp();
+      _isInitialized = true;
+    }
+  }
 
   Future<User?> signInWithEmailPassword(String email, String password) async {
+    await initializeFirebase(); // Garante que o Firebase está inicializado
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -19,7 +29,9 @@ class AuthService {
     }
   }
 
-  Future<User?> createUserWithEmailPassword(String email, String password, String? displayName) async {
+  Future<User?> createUserWithEmailPassword(
+      String email, String password, String? displayName) async {
+    await initializeFirebase();
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -39,12 +51,19 @@ class AuthService {
   }
 
   Future<void> sendPasswordResetEmail(String email) async {
+    await initializeFirebase();
     await _auth.sendPasswordResetEmail(email: email);
   }
 
   Future<void> signOut() async {
+    await initializeFirebase();
     await _auth.signOut();
   }
 
-  User? get currentUser => _auth.currentUser;
+  User? get currentUser {
+    if (!_isInitialized) {
+      throw 'Firebase não inicializado!';
+    }
+    return _auth.currentUser;
+  }
 }

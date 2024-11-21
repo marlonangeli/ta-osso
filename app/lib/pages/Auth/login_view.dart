@@ -19,7 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        final TextEditingController _resetEmailController = TextEditingController();
+        final TextEditingController _resetEmailController =
+            TextEditingController();
         return AlertDialog(
           title: const Text("Recuperação de Senha"),
           content: Column(
@@ -45,11 +46,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             TextButton(
               onPressed: () {
-                AuthService().sendPasswordResetEmail(_resetEmailController.text.trim());
+                AuthService()
+                    .sendPasswordResetEmail(_resetEmailController.text.trim());
 
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Código de recuperação enviado!')),
+                  const SnackBar(
+                      content: Text('Código de recuperação enviado!')),
                 );
               },
               child: const Text("Enviar Código"),
@@ -128,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const SignUpView()),
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpView()),
                       );
                     },
                     child: const Text(
@@ -150,8 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         User? user;
 
                         try {
-                          user = await AuthService()
-                              .signInWithEmailPassword(
+                          user = await AuthService().signInWithEmailPassword(
                             _emailController.text.trim(),
                             _passwordController.text.trim(),
                           );
