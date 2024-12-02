@@ -6,7 +6,9 @@ class AuthService {
   Future<User?> signInWithEmailPassword(String email, String password) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -23,10 +25,14 @@ class AuthService {
       String email, String password, String? displayName) async {
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
+
       if (displayName != null) {
         await userCredential.user?.updateDisplayName(displayName);
       }
+
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {

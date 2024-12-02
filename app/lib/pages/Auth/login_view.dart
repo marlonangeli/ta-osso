@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ta_osso/pages/Auth/signup_view.dart';
 import 'package:ta_osso/pages/home_view.dart';
+import 'package:ta_osso/pages/profile_view.dart';
 import 'package:ta_osso/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -167,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (user != null) {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => const HomePage(),
+                              builder: (context) => const ProfileView(),
                             ),
                           );
                         }
