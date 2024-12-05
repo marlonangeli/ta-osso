@@ -4,6 +4,7 @@ import 'package:ta_osso/common/constants/routes.dart';
 import 'package:ta_osso/pages/Auth/login_view.dart';
 import 'package:ta_osso/pages/home_view.dart';
 import 'package:ta_osso/services/auth_service.dart';
+import 'package:ta_osso/services/user_service.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -128,16 +129,13 @@ class _SignUpViewState extends State<SignUpView> {
 
                         User? user;
 
-                        try {
-                          user = await AuthService().createUserWithEmailPassword(
-                            _emailController.text.trim(),
-                            _passwordController.text.trim(),
-                            _nameController.text.trim());
-                        } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(e.toString())),
-                          );
-                        }
+                    try {
+                      // Criar usuário no Firebase Auth
+                      User? user = await _authService.createUserWithEmailPassword(
+                        _emailController.text.trim(),
+                        _passwordController.text.trim(),
+                        _nameController.text.trim(),
+                      );
 
                         if (user != null) {
                           Navigator.pushNamed(
