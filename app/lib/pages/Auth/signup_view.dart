@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ta_osso/common/constants/app_colors.dart';
 import 'package:ta_osso/common/constants/routes.dart';
-import 'package:ta_osso/pages/home/home_page_view.dart';
-import 'package:ta_osso/pages/Auth/login_view.dart';
 import 'package:ta_osso/pages/home_view.dart';
 import 'package:ta_osso/services/auth_service.dart';
 import 'package:ta_osso/services/user_service.dart';
@@ -128,20 +127,28 @@ class _SignUpViewState extends State<SignUpView> {
                           return;
                         }
 
-                        User? user;
+                        try {
+                          User? user = await _authService.createUserWithEmailPassword(
+                            _emailController.text.trim(),
+                            _passwordController.text.trim(),
+                            _nameController.text.trim(),
+                          );
 
-                    try {
-                      // Criar usuário no Firebase Auth
-                      User? user = await _authService.createUserWithEmailPassword(
-                        _emailController.text.trim(),
-                        _passwordController.text.trim(),
-                        _nameController.text.trim(),
-                      );
+                          if (user != null) {
+                            await _userService.verifyAndSaveUser(
+                              user,
+                              _nameController.text.trim(),
+                            );
 
-                        if (user != null) {
-                          Navigator.pushNamed(
-                            context,
-                            NamedRoutes.homepage,
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(e.toString())),
                           );
                         }
                       },
