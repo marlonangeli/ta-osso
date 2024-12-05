@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ta_osso/pages/Auth/login_view.dart';
 import 'package:ta_osso/pages/home_view.dart';
 import 'package:ta_osso/services/auth_service.dart';
 import 'package:ta_osso/services/user_service.dart';
