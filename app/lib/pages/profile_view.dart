@@ -54,7 +54,7 @@ class ProfileView extends StatelessWidget {
                           fontSize: 16,
                           color: Colors.grey,
                         ),
-                      ),                     
+                      ),
                     ],
                   ),
                 ),

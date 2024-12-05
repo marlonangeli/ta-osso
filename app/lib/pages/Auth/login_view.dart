@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ta_osso/pages/Auth/signup_view.dart';
-import 'package:ta_osso/pages/home_view.dart';
+import 'package:ta_osso/common/constants/app_colors.dart';
+import 'package:ta_osso/common/constants/routes.dart';
 import 'package:ta_osso/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -66,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.timberwolf,
       resizeToAvoidBottomInset: true,
       body: FutureBuilder(
         future: null,
@@ -87,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text(
                     "Bem-vindo ao Ta Osso 🦴",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.eerieBlack,
                       fontSize: 40.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -95,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text(
                     "Login no Ta Osso",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.eerieBlack,
                       fontSize: 28.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -106,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Email',
-                      prefixIcon: Icon(Icons.email, color: Colors.black),
+                      prefixIcon: Icon(Icons.email, color: AppColors.eerieBlack),
                     ),
                   ),
                   const SizedBox(height: 26.0),
@@ -116,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     keyboardType: TextInputType.visiblePassword,
                     decoration: const InputDecoration(
                       hintText: 'Senha',
-                      prefixIcon: Icon(Icons.lock, color: Colors.black),
+                      prefixIcon: Icon(Icons.lock, color: AppColors.eerieBlack),
                     ),
                   ),
                   const SizedBox(height: 10.0),
@@ -124,27 +125,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: _showPasswordResetDialog,
                     child: const Text(
                       'Esqueceu sua senha?',
-                      style: TextStyle(color: Colors.blue),
+                      style: TextStyle(color: AppColors.blue),
                     ),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpView()),
+                        NamedRoutes.signup,
                       );
                     },
                     child: const Text(
                       'Cadastrar Agora',
-                      style: TextStyle(color: Colors.blue),
+                      style: TextStyle(color: AppColors.blue),
                     ),
                   ),
                   const Spacer(),
                   SizedBox(
                     width: double.infinity,
                     child: RawMaterialButton(
-                      fillColor: const Color.fromARGB(255, 238, 196, 7),
+                    fillColor: AppColors.jonquil,
                       elevation: 0.0,
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       shape: RoundedRectangleBorder(
@@ -165,16 +165,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
 
                         if (user != null) {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ),
+                          Navigator.pushNamed(
+                            context,
+                            NamedRoutes.homepage,
                           );
                         }
                       },
                       child: const Text(
                         "Entrar",
-                        style: TextStyle(color: Colors.white, fontSize: 18.0),
+                        style: TextStyle(color: AppColors.white, fontSize: 18.0),
                       ),
                     ),
                   ),
