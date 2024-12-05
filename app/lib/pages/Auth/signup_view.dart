@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ta_osso/common/constants/app_colors.dart';
+import 'package:ta_osso/common/constants/routes.dart';
 import 'package:ta_osso/pages/Auth/login_view.dart';
-import 'package:ta_osso/pages/home_view.dart';
+import 'package:ta_osso/pages/home/home_page_view.dart';
 import 'package:ta_osso/services/auth_service.dart';
 
 class SignUpView extends StatefulWidget {
@@ -24,6 +26,7 @@ class _SignUpViewState extends State<SignUpView> {
       future: null, // TODO: arrumar
       builder: (context, snapshot) {
         return Scaffold(
+          backgroundColor: AppColors.timberwolf,
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
@@ -41,7 +44,7 @@ class _SignUpViewState extends State<SignUpView> {
                   const Text(
                     "Bem-vindo ao Ta Osso 🦴",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.eerieBlack,
                       fontSize: 40.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -49,7 +52,7 @@ class _SignUpViewState extends State<SignUpView> {
                   const Text(
                     "Faça Seu Cadastro",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.eerieBlack,
                       fontSize: 28.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -60,7 +63,7 @@ class _SignUpViewState extends State<SignUpView> {
                     keyboardType: TextInputType.name,
                     decoration: const InputDecoration(
                       hintText: 'Nome Completo',
-                      prefixIcon: Icon(Icons.person, color: Colors.black),
+                      prefixIcon: Icon(Icons.person, color: AppColors.eerieBlack),
                     ),
                   ),
                   const SizedBox(height: 26.0),
@@ -69,7 +72,7 @@ class _SignUpViewState extends State<SignUpView> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Email',
-                      prefixIcon: Icon(Icons.email, color: Colors.black),
+                      prefixIcon: Icon(Icons.email, color: AppColors.eerieBlack),
                     ),
                   ),
                   const SizedBox(height: 26.0),
@@ -78,7 +81,7 @@ class _SignUpViewState extends State<SignUpView> {
                     obscureText: true,
                     decoration: const InputDecoration(
                       hintText: 'Senha',
-                      prefixIcon: Icon(Icons.lock, color: Colors.black),
+                      prefixIcon: Icon(Icons.lock, color: AppColors.eerieBlack),
                     ),
                   ),
                   const SizedBox(height: 26.0),
@@ -87,27 +90,27 @@ class _SignUpViewState extends State<SignUpView> {
                     obscureText: true,
                     decoration: const InputDecoration(
                       hintText: 'Confirme a Senha',
-                      prefixIcon: Icon(Icons.lock, color: Colors.black),
+                      prefixIcon: Icon(Icons.lock, color: AppColors.eerieBlack),
                     ),
                   ),
                   const SizedBox(height: 36.0),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        NamedRoutes.login,
                       );
                     },
                     child: const Text(
                       'Já tem login?',
-                      style: TextStyle(color: Colors.blue),
+                      style: TextStyle(color: AppColors.blue),
                     ),
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     child: RawMaterialButton(
-                      fillColor: const Color.fromARGB(255, 238, 196, 7),
+                      fillColor: AppColors.aureolin,
                       elevation: 0.0,
                       padding: const EdgeInsets.symmetric(vertical: 18.0),
                       shape: RoundedRectangleBorder(
@@ -136,16 +139,15 @@ class _SignUpViewState extends State<SignUpView> {
                         }
 
                         if (user != null) {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ),
+                          Navigator.pushNamed(
+                            context,
+                            NamedRoutes.homepage,
                           );
                         }
                       },
                       child: const Text(
                         "Cadastrar",
-                        style: TextStyle(color: Colors.white, fontSize: 18.0),
+                        style: TextStyle(color: AppColors.white, fontSize: 18.0),
                       ),
                     ),
                   ),

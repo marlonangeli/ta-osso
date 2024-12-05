@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:ta_osso/pages/Onboarding/onboarding_info.dart';
 
 class OnboardingItems {

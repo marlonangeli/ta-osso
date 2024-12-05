@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:ta_osso/common/constants/app_colors.dart';
+import 'package:ta_osso/common/constants/routes.dart';
 import 'package:ta_osso/pages/Onboarding/onboarding_items.dart';
 import 'package:ta_osso/pages/Auth/login_view.dart';
+import 'package:ta_osso/services/prefs_service.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -13,13 +16,34 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   final controller = OnboardingItems();
   final pageController = PageController();
+  final PrefsService _prefsService = PrefsService();
   bool isLastPage = false;
+  bool javi = false;
+
+ @override
+  void initState() {
+    super.initState();
+    _checkIfOnboardingCompleted();
+  }
+
+   Future<void> _checkIfOnboardingCompleted() async {
+    final onboardingCompleted = await _prefsService.carregarBool('onboarding_completed');
+    print('Status do Shared para onboarding: $onboardingCompleted');
+    if (onboardingCompleted) {
+      Navigator.pushReplacementNamed(context, NamedRoutes.login);
+    }
+  }
+
+  void _completeOnboarding() async {
+    await _prefsService.salvarBool('onboarding_completed', true);
+    Navigator.pushReplacementNamed(context, NamedRoutes.login);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: Container(
-        color: Colors.white,
+        color: AppColors.white,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: isLastPage
             ? getStarted()
@@ -42,7 +66,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                     effect: const WormEffect(
                       dotHeight: 12,
                       dotWidth: 12,
-                      activeDotColor: Colors.amberAccent,
+                      dotColor: AppColors.jonquil,
+                 
                     ),
                   ),
                   TextButton(
@@ -86,7 +111,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   child: Text(
                     controller.items[index].description,
                     style: const TextStyle(
-                      color: Colors.grey,
+                      color: AppColors.timberwolf,
                       fontSize: 17,
                     ),
                     textAlign: TextAlign.center,
@@ -104,20 +129,16 @@ class _OnboardingViewState extends State<OnboardingView> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
-        color: Colors.amber,
+        color: AppColors.jonquil,
       ),
       width: MediaQuery.of(context).size.width * 0.9,
       height: 55,
       child: TextButton(
-        onPressed: () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
-          );
-        },
+        onPressed: _completeOnboarding,
         child: const Text(
           "Começar Agora",
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 18,
           ),
         ),
