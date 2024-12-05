@@ -2,7 +2,12 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ta_osso/common/constants/routes.dart';
+import 'package:ta_osso/pages/Auth/login_view.dart';
+import 'package:ta_osso/pages/Auth/signup_view.dart';
 import 'package:ta_osso/pages/Onboarding/onboarding_view.dart';
+import 'package:ta_osso/pages/home/home_page_view.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +45,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellowAccent),
         useMaterial3: true,
       ),
-      home: const OnboardingView(),
+      initialRoute: NamedRoutes.onboarding,
+      routes: {
+       NamedRoutes.onboarding: (context) => OnboardingView(),
+       NamedRoutes.login: (context) => LoginScreen(),
+       NamedRoutes.signup: (context) => SignUpView(),
+       NamedRoutes.homepage: (context) => HomePage(),
+      },
     );
   }
 }
