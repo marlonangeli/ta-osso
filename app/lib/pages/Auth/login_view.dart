@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ta_osso/common/constants/app_colors.dart';
 import 'package:ta_osso/common/constants/routes.dart';
-import 'package:ta_osso/pages/Auth/signup_view.dart';
-import 'package:ta_osso/pages/home/home_page_view.dart';
 import 'package:ta_osso/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {

@@ -6,7 +6,7 @@ import 'package:ta_osso/common/constants/routes.dart';
 import 'package:ta_osso/pages/Auth/login_view.dart';
 import 'package:ta_osso/pages/Auth/signup_view.dart';
 import 'package:ta_osso/pages/Onboarding/onboarding_view.dart';
-import 'package:ta_osso/pages/home/home_page_view.dart';
+import 'package:ta_osso/pages/home_view.dart';
 
 
 Future<void> main() async {
@@ -47,10 +47,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: NamedRoutes.onboarding,
       routes: {
-       NamedRoutes.onboarding: (context) => OnboardingView(),
-       NamedRoutes.login: (context) => LoginScreen(),
-       NamedRoutes.signup: (context) => SignUpView(),
-       NamedRoutes.homepage: (context) => HomePage(),
+       NamedRoutes.onboarding: (context) => const OnboardingView(),
+       NamedRoutes.login: (context) => const LoginScreen(),
+       NamedRoutes.signup: (context) => const SignUpView(),
+       NamedRoutes.homepage: (context) => const HomePage(),
       },
     );
   }
