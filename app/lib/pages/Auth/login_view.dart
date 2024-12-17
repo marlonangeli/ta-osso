@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        final TextEditingController _resetEmailController =
+        final TextEditingController resetEmailController =
             TextEditingController();
         return AlertDialog(
           title: const Text("Recuperação de Senha"),
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text("Digite o e-mail associado à sua conta."),
               const SizedBox(height: 10),
               TextField(
-                controller: _resetEmailController,
+                controller: resetEmailController,
                 decoration: const InputDecoration(
                   hintText: "E-mail",
                   prefixIcon: Icon(Icons.email),
@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             TextButton(
               onPressed: () {
                 AuthService()
-                    .sendPasswordResetEmail(_resetEmailController.text.trim());
+                    .sendPasswordResetEmail(resetEmailController.text.trim());
 
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(

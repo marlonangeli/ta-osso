@@ -3,7 +3,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ta_osso/common/constants/app_colors.dart';
 import 'package:ta_osso/common/constants/routes.dart';
 import 'package:ta_osso/pages/Onboarding/onboarding_items.dart';
-import 'package:ta_osso/pages/Auth/login_view.dart';
 import 'package:ta_osso/services/prefs_service.dart';
 
 class OnboardingView extends StatefulWidget {

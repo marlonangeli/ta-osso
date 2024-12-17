@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,6 @@ class ProfileView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Cabeçalho
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -23,7 +22,6 @@ class ProfileView extends StatelessWidget {
                   child: IconButton(
                     icon: const Icon(Icons.notifications, color: Colors.white),
                     onPressed: () {
-                      // Apenas efeito visual
                     },
                   ),
                 ),
@@ -36,7 +34,7 @@ class ProfileView extends StatelessWidget {
                       CircleAvatar(
                         radius: 50,
                         backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150', // Placeholder para a imagem do usuário
+                          'https://via.placeholder.com/150', 
                         ),
                       ),
                       SizedBox(height: 8),
@@ -107,10 +105,9 @@ class ProfileView extends StatelessWidget {
       {required IconData icon, required String title}) {
     return InkWell(
       onTap: () {
-        // Apenas efeito visual ao tocar
       },
-      splashColor: Theme.of(context).primaryColor.withOpacity(0.2), // Efeito ao clicar
-      highlightColor: Theme.of(context).primaryColor.withOpacity(0.1), // Efeito ao pressionar
+      splashColor: Theme.of(context).primaryColor.withOpacity(0.2), 
+      highlightColor: Theme.of(context).primaryColor.withOpacity(0.1), 
       child: ListTile(
         leading: Icon(icon, color: Colors.black),
         title: Text(title),
